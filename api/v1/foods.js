@@ -32,7 +32,7 @@ foodRouter.post('/', function(req, res, next) {
   var name = req.body.name
   var calories = req.body.calories
 
-  if(!name && !calories) {
+  if(!name || !calories) {
     return res.status(400).send({
       error: "Please provide both name and calories"
     })
@@ -48,8 +48,11 @@ foodRouter.patch('/:id', function(req, res, next) {
   var id = req.params.id
   var name = req.body.name
   var calories = req.body.calories
+  console.log(id)
+  console.log(name)
+  console.log(calories)
 
-  if(!name && !calories) {
+  if(!name || !calories) {
     return res.status(400).send({
       error: "Please provide both name and calories"
     })
