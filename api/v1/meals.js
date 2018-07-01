@@ -17,5 +17,17 @@ mealRouter.get('/', function(req, res, next) {
   })
 });
 
+mealRouter.get('/:id', function(req, res, next) {
+  var id = req.params.id
+  database.raw('SELECT * FROM meals WHERE id = ?', [id]).
+  then(function(meals) {
+    if(!meals.rows || meals.rows.length < 1) {
+      return res.sendStatus(404);
+    } else {
+     return res.json(meals.rows);
+    }
+  })
+});
+
 
 module.exports = mealRouter;
