@@ -31,8 +31,6 @@ foodRouter.get('/:id', function(req, res, next) {
 foodRouter.post('/', function(req, res, next) {
   var name = req.body.name
   var calories = req.body.calories
-  console.log(name)
-  console.log(calories)
 
   if(!name && !calories) {
     return res.status(400).send({
@@ -40,6 +38,23 @@ foodRouter.post('/', function(req, res, next) {
     })
   } else {
     database.raw('INSERT INTO foods (name, calories) VALUES (?,?) RETURNING *', [name, calories]).
+    then(function(foods) {
+      res.status(201).json(foods.rows[0])
+    })
+  }
+})
+
+foodRouter.patch('/:id', function(req, res, next) {
+  var id = req.params.id
+  var name = req.body.name
+  var calories = req.body.calories
+
+  if(!name && !calories) {
+    return res.status(400).send({
+      error: "Please provide both name and calories"
+    })
+  } else {
+    database.raw('UPDATE foods SET name = ?, calories = ? WHERE id = ? RETURNING *', [name, calories, id]).
     then(function(foods) {
       res.status(201).json(foods.rows[0])
     })
