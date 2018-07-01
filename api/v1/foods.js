@@ -20,7 +20,7 @@ foodRouter.get('/:id', function(req, res, next) {
   var id = req.params.id
   database.raw('SELECT * FROM foods WHERE id = ?', [id]).
   then(function(foods) {
-    if(!foods.rows) {
+    if(!foods.rows || foods.rows.length < 1) {
       return res.sendStatus(404);
     } else {
      return res.json(foods.rows);
@@ -48,9 +48,6 @@ foodRouter.patch('/:id', function(req, res, next) {
   var id = req.params.id
   var name = req.body.name
   var calories = req.body.calories
-  console.log(id)
-  console.log(name)
-  console.log(calories)
 
   if(!name || !calories) {
     return res.status(400).send({
@@ -60,6 +57,23 @@ foodRouter.patch('/:id', function(req, res, next) {
     database.raw('UPDATE foods SET name = ?, calories = ? WHERE id = ? RETURNING *', [name, calories, id]).
     then(function(foods) {
       res.status(201).json(foods.rows[0])
+    })
+  }
+})
+
+foodRouter.delete('/:id', function(req, res, next) {
+  var id = req.params.id
+
+  if(!id) {
+    return res.status(404).send({
+      error: "No food with that ID"
+    })
+  } else {
+    database.raw('DELETE FROM foods WHERE id = ?', [id])
+    .then(function(foods) {
+      res.status(201).json({
+        message: `Deleted food with id of ${id}`
+      })
     })
   }
 })
