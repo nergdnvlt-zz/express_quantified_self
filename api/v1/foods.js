@@ -5,7 +5,6 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../knexfile')[environment];
 const database = require('knex')(configuration);
 
-const pry = require('pryjs')
 const Food = require('../../models/food')
 
 
@@ -46,8 +45,8 @@ foodRouter.post('/', function(req, res, next) {
     })
   } else {
     Food.create(food)
-    .then(foods => {
-      res.status(201).json(foods[0])
+    .then(food => {
+      res.status(201).json(food)
     });
   }
 });
@@ -63,8 +62,8 @@ foodRouter.patch('/:id', function(req, res, next) {
     })
   } else {
     Food.update(food)
-    .then(foods => {
-      res.status(201).json(foods)
+    .then(food => {
+      res.status(201).json(food)
     });
   }
 });

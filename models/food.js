@@ -18,6 +18,9 @@ class Food {
     })
     .returning('*')
     .limit(1)
+    .then(foods => {
+      return foods[0];
+    })
   }
 
   static update(food) {
@@ -27,6 +30,9 @@ class Food {
     })
     .returning('*')
     .limit(1)
+    .then(foods => {
+      return foods[0];
+    })
   }
 
   static destroy(foodId) {
