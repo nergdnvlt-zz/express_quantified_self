@@ -5,78 +5,110 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../knexfile')[environment];
 const database = require('knex')(configuration);
 
+const pry = require('pryjs')
+
+
+
+//Get All
 foodRouter.get('/', function(req, res, next) {
-  database.raw('SELECT * FROM foods').
-  then(function(foods) {
-    if(!foods.rows) {
+  database.select().from('foods')
+  .then(foods => {
+    if(!foods) {
       return res.sendStatus(404);
     } else {
-     return res.json(foods.rows);
+     return res.json(foods);
     }
-  })
+  });
 });
 
+
+//Get Single Route
 foodRouter.get('/:id', function(req, res, next) {
-  var id = req.params.id
-  database.raw('SELECT * FROM foods WHERE id = ?', [id]).
-  then(function(foods) {
-    if(!foods.rows || foods.rows.length < 1) {
+  var foodId = req.params.id
+
+  database('foods').where({id: foodId}).limit(1)
+  .then(food => {
+    if(!food || food.length < 1) {
       return res.sendStatus(404);
     } else {
-     return res.json(foods.rows);
+     return res.json(food);
     }
-  })
+  });
 });
 
+
+//Create Route
 foodRouter.post('/', function(req, res, next) {
-  var name = req.body.name
-  var calories = req.body.calories
+  var incomingName = req.body.name
+  var incomingCalories = req.body.calories
 
-  if(!name || !calories) {
+  if(!incomingName || !incomingCalories) {
     return res.status(400).send({
       error: "Please provide both name and calories"
     })
   } else {
-    database.raw('INSERT INTO foods (name, calories) VALUES (?,?) RETURNING *', [name, calories]).
-    then(function(foods) {
-      res.status(201).json(foods.rows[0])
+    database('foods').insert({
+      name: incomingName,
+      calories: incomingCalories
     })
+    .returning('*')
+    .limit(1)
+    .then(foods => {
+      res.status(201).json(foods)
+    });
   }
-})
+});
 
+
+//Update route
 foodRouter.patch('/:id', function(req, res, next) {
-  var id = req.params.id
-  var name = req.body.name
-  var calories = req.body.calories
+  var incomingId = req.params.id
+  var updatedName = req.body.name
+  var updatedCalories = req.body.calories
 
-  if(!name || !calories) {
+  if(!updatedName || !updatedCalories) {
     return res.status(400).send({
       error: "Please provide both name and calories"
     })
   } else {
-    database.raw('UPDATE foods SET name = ?, calories = ? WHERE id = ? RETURNING *', [name, calories, id]).
-    then(function(foods) {
-      res.status(201).json(foods.rows[0])
+    database('foods').where({id: incomingId}).update({
+      name: updatedName,
+      calories: updatedCalories
     })
+    .returning('*')
+    .limit(1)
+    .then(foods => {
+      res.status(201).json(foods)
+    });
   }
-})
+});
 
+
+// Delete Path
 foodRouter.delete('/:id', function(req, res, next) {
-  var id = req.params.id
+  var idForDeletion = req.params.id
 
-  if(!id) {
+  if(!idForDeletion) {
     return res.status(404).send({
-      error: "No food with that ID"
+      error: 404,
+      message: "No food with that ID"
     })
   } else {
-    database.raw('DELETE FROM foods WHERE id = ?', [id])
-    .then(function(foods) {
-      res.status(201).json({
-        message: `Deleted food with id of ${id}`
-      })
-    })
+    database('foods').where({id: idForDeletion}).del()
+    .then(food => {
+      if(!food){
+        res.status(404).json({
+          error: 404,
+          message: 'There is no food with that ID'
+        })
+      } else {
+        res.status(201).json({
+          message: `Deleted food with id of ${idForDeletion}`
+        });
+      }
+    });
   }
-})
+});
 
 
 module.exports = foodRouter;
