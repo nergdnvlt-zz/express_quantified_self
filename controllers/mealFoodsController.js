@@ -45,7 +45,6 @@ class mealFoodsController {
         .join('foods', {'foods.id': 'mealfoods.food_id'})
         .first()
       .then(mealfood => {
-        eval(pry.it)
         responseMealFood = mealfood })
       .then(deleteIt => {
         return database('mealfoods')
