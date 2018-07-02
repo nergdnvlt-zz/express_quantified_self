@@ -8,7 +8,10 @@ class Food {
   }
 
   static find(id){
-    return database('foods').where('id', id).select('id', 'name').limit(1)
+    return database('foods').where('id', id).select('id', 'name', 'calories').limit(1)
+    .then(foods => {
+      return foods[0];
+    });
   }
 
   static create(food){
