@@ -5,6 +5,7 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../knexfile')[environment];
 const database = require('knex')(configuration);
 
+const pry = require('pryjs')
 const Food = require('../../models/food')
 
 
@@ -37,7 +38,7 @@ foodRouter.get('/:id', function(req, res, next) {
 
 //Create Route
 foodRouter.post('/', function(req, res, next) {
-  let food = req.body
+  let food = req.body.food
 
   if(!food.name || !food.calories) {
     return res.status(400).send({
