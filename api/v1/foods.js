@@ -55,7 +55,7 @@ foodRouter.post('/', function(req, res, next) {
 
 //Update route
 foodRouter.patch('/:id', function(req, res, next) {
-  let food = {id: req.params.id, name: req.body.name, calories: req.body.calories}
+  let food = {id: req.params.id, name: req.body.food.name, calories: req.body.food.calories}
 
   if(!food.name || !food.calories) {
     return res.status(400).send({
