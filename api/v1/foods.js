@@ -5,6 +5,8 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../knexfile')[environment];
 const database = require('knex')(configuration);
 
+const pry = require('pryjs')
+
 
 
 //Get All
@@ -26,7 +28,7 @@ foodRouter.get('/:id', function(req, res, next) {
 
   database('foods').where({id: foodId}).limit(1)
   .then(food => {
-    if(!food) {
+    if(!food || food.length < 1) {
       return res.sendStatus(404);
     } else {
      return res.json(food);

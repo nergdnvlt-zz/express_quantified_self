@@ -86,12 +86,13 @@ mealRouter.delete('/:meal_id/foods/:id', function(req, res, next) {
       responseMealFood = mealfood
     )
     .then(deleteIt => {
-      database('mealfoods')
-      .where({meal_id: delMealId}, {food_id: delMealId})
+      return database('mealfoods')
+      .where({meal_id: delMealId})
+      .andWhere({food_id: delFoodId})
       .del()
-      .returning('*')
     })
     .then(response => {
+      console.log(response)
       res.status(201).json({
         message: `Successfully removed ${responseMealFood.foodName} from ${responseMealFood.mealName}`
       })
