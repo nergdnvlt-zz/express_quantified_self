@@ -47,7 +47,7 @@ foodRouter.post('/', function(req, res, next) {
   } else {
     Food.create(food)
     .then(foods => {
-      res.status(201).json(foods)
+      res.status(201).json(foods[0])
     });
   }
 });
