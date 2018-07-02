@@ -5,12 +5,8 @@ class foodsController {
   static index(req, res, next) {
     Food.all()
     .then(foods => {
-      if(!foods) {
-        return res.sendStatus(404);
-      } else {
-        return res.json(foods);
-      }
-    })
+      return res.json(foods);
+    });
   }
 
   static show(req, res, next) {
