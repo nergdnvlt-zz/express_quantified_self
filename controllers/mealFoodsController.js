@@ -2,6 +2,8 @@ const environment = process.env.NODE_ENV || 'development'
 const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
 
+const MealFoods = require('../models/mealFoods')
+
 class mealFoodsController {
 
   static create(req, res, next) {
@@ -10,18 +12,7 @@ class mealFoodsController {
         error: "Please provide both Meal ID and Food ID"
       });
     } else {
-      database('mealfoods').insert({
-        meal_id: req.params.mealId,
-        food_id: req.params.id
-      })
-      .then(mealAndFood => {
-        return database('mealfoods')
-        .select({mealName: 'meals.name'}, {foodName: 'foods.name'})
-        .where({meal_id: req.params.mealId, food_id: req.params.id})
-        .join('meals', {'meals.id': 'mealfoods.meal_id'})
-        .join('foods', {'foods.id': 'mealfoods.food_id'})
-        .first()
-      })
+      return MealFoods.create(req.params.mealId, req.params.id)
       .then(response => {
         res.status(201).json({
           message: `Successfully added ${response.mealName} to ${response.foodName}`
@@ -38,22 +29,12 @@ class mealFoodsController {
         message: "Invalid Meal or Food ID"
       })
     } else {
-      return database('mealfoods')
-        .select({'mealName': 'meals.name'}, {'foodName': 'foods.name'})
-        .where({'meal_id': req.params.mealId, 'food_id': req.params.id})
-        .join('meals', {'meals.id': 'mealfoods.meal_id'})
-        .join('foods', {'foods.id': 'mealfoods.food_id'})
-        .first()
-      .then(mealfood => {
-        responseMealFood = mealfood })
-      .then(deleteIt => {
-        return database('mealfoods')
-        .where({meal_id: req.params.mealId})
-        .andWhere({food_id: req.params.id})
-        .del()
+      MealFoods.getMessage(req.params.mealId, req.params.id)
+      .then(mealfoods => responseMealFood = mealfoods)
+      .then(mealfoods => {
+        return MealFoods.destroy(req.params.mealId, req.params.id)
       })
       .then(response => {
-        console.log(response)
         res.status(201).json({
           message: `Successfully removed ${responseMealFood.foodName} from ${responseMealFood.mealName}`
         })
@@ -61,4 +42,5 @@ class mealFoodsController {
     }
   }
 }
+
 module.exports = mealFoodsController
