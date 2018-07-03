@@ -16,6 +16,7 @@ foodRouter.post('/', foodsController.create)
 
 // Updates current food
 foodRouter.patch('/:id', foodsController.update)
+foodRouter.put('/:id', foodsController.update)
 
 // Deletes Existing Food
 foodRouter.delete('/:id', foodsController.destroy)
