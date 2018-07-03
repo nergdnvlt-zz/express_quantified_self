@@ -1,4 +1,4 @@
-const mealfoods = require('../../../mealfoods')
+const mealfoods = require('../../data/mealfoods')
 
 exports.seed = function(knex, Promise) {
   return knex.raw('TRUNCATE TABLE mealfoods RESTART IDENTITY CASCADE')

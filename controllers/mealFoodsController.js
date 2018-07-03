@@ -15,7 +15,7 @@ class mealFoodsController {
       return MealFoods.create(req.params.mealId, req.params.id)
       .then(response => {
         res.status(201).json({
-          message: `Successfully added ${response.mealName} to ${response.foodName}`
+          message: `Successfully added ${response.foodName} to ${response.mealName}`
         });
       })
     }
