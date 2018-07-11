@@ -241,7 +241,7 @@ It will return a JSON response of:
 ```
 
 
-## For Downloading and Running Yourself:
+## Basic Repo Info:
 
 ### Versions/Prerequisites
 ---
