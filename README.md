@@ -20,10 +20,7 @@ This project is an introduction to true Gateway API Architecture. I am utilizing
 ### Table Of Contents
 - [Database and Schema](#database-and-schema)
 - [API End Points](#api-end-points)
-- [Versions/Prerequisites](#versions-prerequisites)
-- [Setup](#setup)
-- [The Test Suite](#the-test-suite)
-- [Spinning Up A Server](#spinning-up-a-server)
+- [Basic Repo Info](#basic-repo-info)
 - [Authors](#authors)
 
 ### Database and Schema
