@@ -13,7 +13,7 @@ Pitch:
 This app is a basic food/meal/calorie tracking application.
 
 Tech Pitch:
-This project is an introduction to true Gateway API Architecture. I am utilizing a front-end built in JavaScript which makes fetch calls to the Rails API endpoints.
+This project is an introduction to true Gateway API Architecture. I am utilizing a front-end built in JavaScript which makes fetch calls to the Node.js API endpoints.
 
 ![screenshot](screenshot.png)
 
@@ -242,11 +242,66 @@ It will return a JSON response of:
 
 ### Versions/Prerequisites
 ---
-##### Main:
+##### Tech Stack:
 To Install and run this application please be aware of the following versions and requirements:
 - PostgreSQL 10+
 - Express
 - JavaScript
+
+## Setup
+
+## Initial Setup
+
+#### Clone this repository:
+
+  ```
+  git clone git@github.com:nergdnvlt/express_quantified_self.git
+  ```
+  ```
+  cd express_quantified_self
+  ```
+
+#### Updgrade pip and install dependencies
+
+  ```shell
+  npm install
+  ```
+
+#### Set up databases using PostgreSQL
+
+  ```shell
+  createdb express_quantified_self;
+  createdb express_quantified_self_test;
+  ```
+
+#### Migrate and Seed
+
+  ```shell
+  knex migrate:latest
+  knex seed:run
+  knex migrate:latest --env test
+  knex seed:run --env test
+  ```
+
+#### Run test suite
+
+  ```shell
+    npm test
+  ```
+
+## Run the Server
+
+To see your code in action locally, you need to fire up a development server. Use the command:
+
+```shell
+nodemon bin/www
+```
+
+Once the server is running, visit API endpoints in your browser:
+
+* `http://localhost:3000/` to run your application.
+
+
 
 
 ### Authors
