@@ -1,6 +1,10 @@
 ### README
 
+---
+
 # EXPRESS - QUANTIFIED SELF
+
+---
 
 ### See The Active Site:
 Front End Production Site:<br>
@@ -17,11 +21,17 @@ This project is an introduction to true Gateway API Architecture. I am utilizing
 
 ![screenshot](screenshot.png)
 
+---
+
 ### Table Of Contents
 - [Database and Schema](#database-and-schema)
+- [Basic Repo Info](#basic-repo-info)
+- [Setup](#setup)
 - [API End Points](#api-end-points)
 - [Basic Repo Info](#basic-repo-info)
 - [Authors](#authors)
+
+---
 
 ### Database and Schema
 ![screenshot](schema.png)
@@ -41,10 +51,79 @@ The second is foods, which each contain a name and amount of calories.
 And the third is MealFoods which is a joins table between meals and foods allowing a food to be a part of many meals and also allowing a meal to have many different foods.
 
 
+---
+
+## Basic Repo Info:
+
+### Versions/Prerequisites
+
+##### Tech Stack:
+To Install and run this application please be aware of the following versions and requirements:
+- PostgreSQL 10+
+- Express
+- JavaScript
+
+### Setup
+
+#### Clone this repository:
+
+  ```
+  git clone git@github.com:nergdnvlt/express_quantified_self.git
+  ```
+  ```
+  cd express_quantified_self
+  ```
+
+#### Updgrade pip and install dependencies
+
+  ```shell
+  npm install
+  ```
+
+#### Set up databases using PostgreSQL
+
+  ```shell
+  createdb express_quantified_self;
+  createdb express_quantified_self_test;
+  ```
+
+#### Migrate/Seed
+
+  ```shell
+  knex migrate:latest
+  knex seed:run
+  knex migrate:latest --env test
+  knex seed:run --env test
+  ```
+
+#### Run test suite
+
+  ```shell
+    npm test
+  ```
+
+## Run the Server
+
+To see your code in action locally, you need to fire up a development server. Use the command:
+
+```shell
+nodemon bin/www
+```
+
+Once the server is running, visit API endpoints in your browser:
+
+* `http://localhost:3000/` to run your application.
+
+<br>
+
+---
+
 ### API End Points
 This is a restful API.
 
-#### Foods
+---
+
+## Foods
 The food database includes full CRUD functionality at each of it's endpoints.
 
 ##### GET REQUESTS
@@ -136,7 +215,7 @@ DELETE /api/foods/{food_id}
 It will return a message as JSON about the success of the deletion.
 
 
-#### Meals
+## Meals
 Meals has traditional RESTFUL routes for it's index and single meal.
 
 ##### GET REQUESTS
@@ -203,7 +282,7 @@ For the single meal endpoint, per the spec, I wanted to be clear that the foods 
 GET /api/v1/meals/{meal_id}/foods
 ```
 
-#### MealFoods
+## MealFoods
 
 The rest of the API's endpoints are to facilitate associating a food with a meal.
 
@@ -237,72 +316,9 @@ It will return a JSON response of:
 }
 ```
 
+<br>
 
-## Basic Repo Info:
-
-### Versions/Prerequisites
 ---
-##### Tech Stack:
-To Install and run this application please be aware of the following versions and requirements:
-- PostgreSQL 10+
-- Express
-- JavaScript
-
-## Setup
-
-## Initial Setup
-
-#### Clone this repository:
-
-  ```
-  git clone git@github.com:nergdnvlt/express_quantified_self.git
-  ```
-  ```
-  cd express_quantified_self
-  ```
-
-#### Updgrade pip and install dependencies
-
-  ```shell
-  npm install
-  ```
-
-#### Set up databases using PostgreSQL
-
-  ```shell
-  createdb express_quantified_self;
-  createdb express_quantified_self_test;
-  ```
-
-#### Migrate and Seed
-
-  ```shell
-  knex migrate:latest
-  knex seed:run
-  knex migrate:latest --env test
-  knex seed:run --env test
-  ```
-
-#### Run test suite
-
-  ```shell
-    npm test
-  ```
-
-## Run the Server
-
-To see your code in action locally, you need to fire up a development server. Use the command:
-
-```shell
-nodemon bin/www
-```
-
-Once the server is running, visit API endpoints in your browser:
-
-* `http://localhost:3000/` to run your application.
-
-
-
 
 ### Authors
 - [Tyler Lundgren](https://github.com/nergdnvlt)

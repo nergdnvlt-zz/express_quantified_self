@@ -30,15 +30,15 @@ class mealFoodsController {
       })
     } else {
       MealFoods.getMessage(req.params.mealId, req.params.id)
-      .then(mealfoods => responseMealFood = mealfoods)
-      .then(mealfoods => {
-        return MealFoods.destroy(req.params.mealId, req.params.id)
-      })
-      .then(response => {
-        res.status(201).json({
-          message: `Successfully removed ${responseMealFood.foodName} from ${responseMealFood.mealName}`
+        .then(mealfoods => responseMealFood = mealfoods)
+        .then(mealfoods => {
+          return MealFoods.destroy(req.params.mealId, req.params.id)
         })
-      })
+        .then(response => {
+          res.status(201).json({
+            message: `Successfully removed ${responseMealFood.foodName} from ${responseMealFood.mealName}`
+          })
+        })
     }
   }
 }
