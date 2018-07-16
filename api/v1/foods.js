@@ -11,7 +11,7 @@ foodRouter.get('/', foodsController.index)
 // Gets single food
 foodRouter.get('/:id', foodsController.show)
 
-// API CONSUMPTION - Non restful route
+//NON-Restful Route for API Consumption
 foodRouter.get('/:id/recipes', foodsController.recipes)
 
 // Creates new food

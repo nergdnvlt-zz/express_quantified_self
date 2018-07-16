@@ -4,9 +4,6 @@ const database = require('knex')(configuration)
 const Food = require('../models/food')
 const MealFood = require('../models/mealFoods')
 
-const pry = require('pryjs')
-
-
 class favoriteFoodsController {
 
   static index(req, res, next){
@@ -17,13 +14,6 @@ class favoriteFoodsController {
     .then(foods => {
       return Food.eval(foods.rows)
     })
-    // .then(foods => {
-    //   total = foods[0].timeseaten
-    //   foods.forEach(function(food) {
-    //     foodObjs.push({name: food.name, calories: food.calories})
-    //   })
-    //   return foodObjs
-    // })
     .then(foods => {
       total = foods[0].timeseaten
       foods.forEach(function(food) {

@@ -3,8 +3,6 @@ const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
 const Food = require('../models/food')
 
-const pry = require('pryjs')
-
 class MealFoods {
 
   static favoriteFoods(){

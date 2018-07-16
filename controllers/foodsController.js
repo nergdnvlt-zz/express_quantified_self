@@ -1,4 +1,5 @@
 const Food = require('../models/food')
+const Recipe = require('../models/recipe')
 
 class foodsController {
 
@@ -69,8 +70,7 @@ class foodsController {
     });
   }
 
-  static recipes(req, res, next) {
-    
+  static recipes(req, res, next){
   }
 }
 
