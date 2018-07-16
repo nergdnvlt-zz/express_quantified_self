@@ -25,6 +25,19 @@ class MealFoods {
     return foodIds
   }
 
+  static mealAndFoods(foodIds){
+    let mealAndFoods = []
+    foodIds.forEach(function(food) {
+      mealAndFoods.push(database('mealfoods')
+        .select({mealName: 'meals.name'}, {foodName: 'foods.name'})
+        .where({food_id: food.id})
+        .join('meals', {'meals.id': 'mealfoods.meal_id'})
+        .join('foods', {'foods.id': 'mealfoods.food_id'})
+        .first())
+    })
+    return mealAndFoods
+  }
+
   static create(mealId, foodId) {
     return database('mealfoods').insert({
       meal_id: mealId,
