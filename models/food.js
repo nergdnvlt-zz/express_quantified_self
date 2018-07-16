@@ -2,6 +2,8 @@ const environment = process.env.NODE_ENV || 'development'
 const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
 
+const pry = require('pryjs')
+
 class Food {
   static all(){
     return database('foods').select('id', 'name', 'calories')
@@ -43,7 +45,13 @@ class Food {
   }
 
   static favorites() {
- }
+    // return database('foods')
+    // .select({'mealName': 'meals.name'}, {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
+    // .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
+    // .join('meals', {'mealfoods.meal_id': 'meals.id'})
+    // .orderBy('foodName')
+    return database.raw('SELECT foods.id, foods.name as foodName, foods.calories, meals.name as mealName, count(foods.id) FROM foods JOIN mealfoods on foods.id=mealfoods.food_id JOIN meals ON mealfoods.meal_id=meals.id GROUP BY ;')
+  }
 
 }
 
