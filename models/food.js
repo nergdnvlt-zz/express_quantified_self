@@ -45,14 +45,14 @@ class Food {
   }
 
   static favorites() {
-    return database('foods')
-    .select({'mealName': 'meals.name'}, {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
-    .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
-    .join('meals', {'mealfoods.meal_id': 'meals.id'})
-    .orderBy('foodName')
-    // return database.raw('SELECT foods.id, foods.name as foodName, foods.calories, meals.name as mealName, count(foods.id) FROM foods JOIN mealfoods on foods.id=mealfoods.food_id JOIN meals ON mealfoods.meal_id=meals.id GROUP BY foods.id, meals.name;')
+    // return database('foods')
+    // .select('meals.name', {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
+    // .count('foods.id')
+    // .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
+    // .join('meals', {'mealfoods.meal_id': 'meals.id'})
+    return database.raw('SELECT foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id GROUP BY foods.id ORDER BY timesEaten DESC;')
+    // return database.raw('SELECT foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id LEFT JOIN meals ON mealfoods.meal_id = meals.id GROUP BY foods.id ORDER BY timesEaten DESC;')
   }
-
 }
 
 module.exports = Food

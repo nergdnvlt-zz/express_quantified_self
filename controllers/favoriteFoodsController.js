@@ -12,7 +12,7 @@ class favoriteFoodsController {
   static index(req, res, next){
     Food.favorites()
     .then(foods => {
-      eval(pry.it)
+      Food.eval(foods)
       return res.json(foods.rows)
     })
   }
