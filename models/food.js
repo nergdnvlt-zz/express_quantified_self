@@ -45,12 +45,12 @@ class Food {
   }
 
   static favorites() {
-    // return database('foods')
-    // .select({'mealName': 'meals.name'}, {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
-    // .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
-    // .join('meals', {'mealfoods.meal_id': 'meals.id'})
-    // .orderBy('foodName')
-    return database.raw('SELECT foods.id, foods.name as foodName, foods.calories, meals.name as mealName, count(foods.id) FROM foods JOIN mealfoods on foods.id=mealfoods.food_id JOIN meals ON mealfoods.meal_id=meals.id GROUP BY ;')
+    return database('foods')
+    .select({'mealName': 'meals.name'}, {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
+    .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
+    .join('meals', {'mealfoods.meal_id': 'meals.id'})
+    .orderBy('foodName')
+    // return database.raw('SELECT foods.id, foods.name as foodName, foods.calories, meals.name as mealName, count(foods.id) FROM foods JOIN mealfoods on foods.id=mealfoods.food_id JOIN meals ON mealfoods.meal_id=meals.id GROUP BY foods.id, meals.name;')
   }
 
 }
