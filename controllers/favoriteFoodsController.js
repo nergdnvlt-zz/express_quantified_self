@@ -16,6 +16,11 @@ class favoriteFoodsController {
     .then(foods => {
       return Food.eval(foods.rows)
     })
+    // .then(foods => {
+    //   foods.forEach(function(food) {
+    //     Food.getFoodMeals(food.id)
+    //   })
+    // })
     .then(foods => {
       total = foods[0].timeseaten
       foods.forEach(function(food) {

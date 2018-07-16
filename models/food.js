@@ -45,7 +45,7 @@ class Food {
   }
 
   static favorites() {
-    return database.raw('SELECT foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id GROUP BY foods.id ORDER BY timesEaten DESC;')
+    return database.raw('SELECT foods.id, foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id GROUP BY foods.id ORDER BY timesEaten DESC;')
   }
 
   static eval(foods) {
@@ -57,6 +57,21 @@ class Food {
       }
     })
     return end_array
+  }
+
+  // static getMeals(foods) {
+  //   foods.map(this.getFoodMeals)
+  // }
+
+  static getFoodMeals(food){
+    return database('meals')
+    .select('meals.name')
+    .join('mealfoods', {'meals.id': 'mealfoods.meals_id'})
+    .where('mealfoods.food_id', food.id)
+    .then(meals => {
+      food.meals = meals
+      return food
+    })
   }
 }
 
