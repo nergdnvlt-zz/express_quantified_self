@@ -27,10 +27,15 @@ class favoriteFoodsController {
     .then(foods => {
       total = foods[0].timeseaten
       foods.forEach(function(food) {
+        let meal_arr = []
         Food.getFoodMeals(food.id)
-        .then(meal => {
-          eval(pry.it)
+        .then(meals => {
+          meals.rows.forEach(function(meal) {
+            meal_arr.push(meal.name)
+          })
+          return meal_arr
         })
+        eval(pry.it)
         foodObjs.push({name: food.name, calories: food.calories})
       })
       return foodObjs

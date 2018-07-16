@@ -59,8 +59,8 @@ class Food {
     return end_array
   }
 
-  static getFoodMeals(food){
-    return database.raw('SELECT meals.name FROM foods JOIN mealfoods ON foods.id = mealfoods.food_id JOIN meals ON mealfoods.meal_id = meals.id WHERE foods.id = ?;', food.id)
+  static getFoodMeals(foodId){
+    return database.raw('SELECT meals.name FROM foods JOIN mealfoods ON foods.id = mealfoods.food_id JOIN meals ON mealfoods.meal_id = meals.id WHERE foods.id = ?;', foodId)
   }
 }
 
