@@ -10,38 +10,28 @@ const pry = require('pryjs')
 class favoriteFoodsController {
 
   static index(req, res, next){
+    let total
+    let foodObjs = []
     Food.favorites()
     .then(foods => {
-      Food.eval(foods)
-      return res.json(foods.rows)
+      return Food.eval(foods.rows)
+    })
+    .then(foods => {
+      total = foods[0].timeseaten
+      foods.forEach(function(food) {
+        foodObjs.push({name: food.name, calories: food.calories})
+      })
+      return foodObjs
+    })
+    .then(foods => {
+      return res.json(
+        {
+          "timesEaten": total,
+          "foods": foodObjs
+        }
+      )
     })
   }
-
-  // static index(req, res, next) {
-  //   let foodObjs = []
-  //   let foodCount = []
-  //   MealFood.favoriteFoods()
-  //   .then(foods => {
-  //     foodCount = foods[0].count
-  //     return MealFood.getOccurances(foods)
-  //   })
-  //   .then(foods => {
-  //     foods.forEach(function(food) {
-  //       Food.find(food)
-  //       .then(food => {
-  //         foodObjs.push({name: food.name, calories: food.calories})
-  //       })
-  //       .then(foods => {
-  //         return res.json(
-  //           {
-  //             "timesEaten": foodCount,
-  //             "foods": foodObjs
-  //           }
-  //         )
-  //         })
-  //       });
-  //   });
-  // }
 }
 
 module.exports = favoriteFoodsController;

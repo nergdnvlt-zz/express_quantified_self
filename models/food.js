@@ -45,13 +45,18 @@ class Food {
   }
 
   static favorites() {
-    // return database('foods')
-    // .select('meals.name', {'foodName': 'foods.name'}, {'foodCalories': 'foods.calories'})
-    // .count('foods.id')
-    // .join('mealfoods', {'foods.id': 'mealfoods.food_id'})
-    // .join('meals', {'mealfoods.meal_id': 'meals.id'})
     return database.raw('SELECT foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id GROUP BY foods.id ORDER BY timesEaten DESC;')
-    // return database.raw('SELECT foods.name, foods.calories, COUNT(foods.id) AS timesEaten FROM foods LEFT JOIN mealfoods ON foods.id = mealfoods.food_id LEFT JOIN meals ON mealfoods.meal_id = meals.id GROUP BY foods.id ORDER BY timesEaten DESC;')
+  }
+
+  static eval(foods) {
+    let end_array = []
+    let top = foods[0].timeseaten
+    foods.forEach(function(food) {
+      if(food.timeseaten == top) {
+        end_array.push(food)
+      }
+    })
+    return end_array
   }
 }
 
