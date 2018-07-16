@@ -10,6 +10,7 @@ const app = express();
 
 const foodsRouter = require('./api/v1/foods');
 const mealsRouter = require('./api/v1/meals');
+const favoriteFoodsRouter = require('./api/v1/favorite_foods');
 
 app.use(cors())
 app.use(logger('dev'));
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/foods', foodsRouter);
 app.use('/api/v1/meals', mealsRouter);
+app.use('/api/v1/favorite_foods', favoriteFoodsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
