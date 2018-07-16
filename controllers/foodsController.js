@@ -68,6 +68,10 @@ class foodsController {
       }
     });
   }
+
+  static recipes(req, res, next) {
+    
+  }
 }
 
 module.exports = foodsController;

@@ -11,6 +11,9 @@ foodRouter.get('/', foodsController.index)
 // Gets single food
 foodRouter.get('/:id', foodsController.show)
 
+// API CONSUMPTION - Non restful route
+foodRouter.get('/:id/recipes', foodsController.recipes)
+
 // Creates new food
 foodRouter.post('/', foodsController.create)
 
@@ -20,6 +23,7 @@ foodRouter.put('/:id', foodsController.update)
 
 // Deletes Existing Food
 foodRouter.delete('/:id', foodsController.destroy)
+
 
 
 module.exports = foodRouter;
