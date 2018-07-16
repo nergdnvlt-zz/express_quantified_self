@@ -12,18 +12,25 @@ class favoriteFoodsController {
   static index(req, res, next){
     let total
     let foodObjs = []
+    let end_foods = []
     Food.favorites()
     .then(foods => {
       return Food.eval(foods.rows)
     })
     // .then(foods => {
+    //   total = foods[0].timeseaten
     //   foods.forEach(function(food) {
-    //     Food.getFoodMeals(food.id)
+    //     foodObjs.push({name: food.name, calories: food.calories})
     //   })
+    //   return foodObjs
     // })
     .then(foods => {
       total = foods[0].timeseaten
       foods.forEach(function(food) {
+        Food.getFoodMeals(food.id)
+        .then(meal => {
+          eval(pry.it)
+        })
         foodObjs.push({name: food.name, calories: food.calories})
       })
       return foodObjs

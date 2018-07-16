@@ -59,19 +59,8 @@ class Food {
     return end_array
   }
 
-  // static getMeals(foods) {
-  //   foods.map(this.getFoodMeals)
-  // }
-
   static getFoodMeals(food){
-    return database('meals')
-    .select('meals.name')
-    .join('mealfoods', {'meals.id': 'mealfoods.meals_id'})
-    .where('mealfoods.food_id', food.id)
-    .then(meals => {
-      food.meals = meals
-      return food
-    })
+    return database.raw('SELECT meals.name FROM foods JOIN mealfoods ON foods.id = mealfoods.food_id JOIN meals ON mealfoods.meal_id = meals.id WHERE foods.id = ?;', food.id)
   }
 }
 
