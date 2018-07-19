@@ -1,34 +1,22 @@
 const Food = require('../models/food');
-const Recipe = require('../models/recipe');
-const axios = require('axios');
-const fetch = require('node-fetch');
+const RecipeService = require('../services/recipes');
 require('dotenv').config();
 
 const pry = require('pryjs')
 
-
 class recipesController {
 
-  static index(req, res, next) {
-    const url = `https://api.yummly.com/v1/api/recipes?_app_id=${process.env.APP_ID}&_app_key=${process.env.APP_KEY}`
-    let searchParam
-    food = Food.find(req.params.id)
-    .then(food => {
-      return searchParam = `&q=${food.name}`
-    })
-    .then(searchParam => {
-      let fullUrl = `${url}${searchParam}`
-      return axios.get(`${fullUrl}`)
-    })
-    .then(response => {
-      eval(pry.it)
-      console.log(response)
-      // response.data.matches recipeName
-      // response.data.matches id
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  static async index(req, res, next) {
+    let rawRecipes = await RecipeService.getRecipes(req)
+    let recipes
+    eval(pry.it)
+    const formattedRecipes = (rawRecipes) => {
+      recipes = rawRecipes.map(recipe => {
+        return {"name": recipe.recipeName, "url": `http://www.yummly.co/recipe/${recipe.id}`}
+      })
+      return { "recipes": recipes }
+    }
+    return res.status(200).json(formatRecipes(recipes))
   }
 }
 
