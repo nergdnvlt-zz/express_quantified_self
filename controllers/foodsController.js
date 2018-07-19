@@ -1,6 +1,4 @@
 const Food = require('../models/food')
-const Recipe = require('../models/recipe')
-const got = require('got');
 
 class foodsController {
 
@@ -68,19 +66,6 @@ class foodsController {
           message: `Deleted food with id of ${idForDeletion}`
         });
       }
-    });
-  }
-
-  static recipes(req, res, next){
-    let foodId = req.params.id
-
-    Food.find(foodId)
-    got('http://api.yummly.com/v1', { json: true })
-    .then(response => {
-      console.log(response.body.url);
-      console.log(response.body.explanation);
-    }).catch(error => {
-      console.log(error.response.body);
     });
   }
 }

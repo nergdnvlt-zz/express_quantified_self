@@ -2,6 +2,7 @@ const express = require('express');
 const foodRouter = express.Router();
 
 const foodsController = require('../../controllers/foodsController')
+const recipesController = require('../../controllers/recipesController')
 
 // Restful API Routes for foods
 
@@ -10,9 +11,6 @@ foodRouter.get('/', foodsController.index)
 
 // Gets single food
 foodRouter.get('/:id', foodsController.show)
-
-//NON-Restful Route for API Consumption
-foodRouter.get('/:id/recipes', foodsController.recipes)
 
 // Creates new food
 foodRouter.post('/', foodsController.create)
@@ -25,5 +23,7 @@ foodRouter.put('/:id', foodsController.update)
 foodRouter.delete('/:id', foodsController.destroy)
 
 
+// Route for Yummly API Consumption
+foodRouter.get('/:id/recipes', recipesController.index)
 
 module.exports = foodRouter;
