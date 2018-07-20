@@ -17,12 +17,6 @@ class recipesController {
     catch(err) {
       console.log(err)
     }
-
-    // const responseRecipes = (recipes) => {
-    //   return RecipeModel.format(recipes)
-    // }
-    //
-    // return res.status(200).json(responseRecipes(recipes))
   }
 }
 

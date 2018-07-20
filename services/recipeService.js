@@ -16,9 +16,6 @@ class RecipeService {
     catch(err) {
       console.log(err)
     }
-    // return axios.get(`${baseUrl}&q=${food.name}`)
-    // .then(recipes => recipes.data.matches)
-    // .catch(error => error)
   }
 }
 
