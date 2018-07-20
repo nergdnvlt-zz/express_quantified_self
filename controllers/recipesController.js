@@ -1,4 +1,4 @@
-const RecipeService = require('../services/RecipeService')
+const RecipeService = require('../services/recipeService')
 const RecipeModel = require('../models/recipeModel')
 
 class recipesController {
