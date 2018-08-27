@@ -7,8 +7,6 @@
 ---
 
 ### See The Active Site:
-Front End Production Site:<br>
-[Quantified Self](https://nergdnvlt.github.io/express_quantified_self_fe/) <br>
 
 API Base URL:<br>
 [Quantified Self Express API](https://express-quantified-self.herokuapp.com)<br>
